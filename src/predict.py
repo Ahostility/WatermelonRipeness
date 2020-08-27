@@ -6,6 +6,7 @@ import torchvision.models as models
 
 from .dirs import DIR_DATA_MODELS
 from .process_data import extract_features_mfcc
+from .check_data import is_watermelon
 
 def predict(path):
     predict_classes = [
@@ -13,6 +14,9 @@ def predict(path):
         'ripe',
         'overripe'
     ]
+
+    if not is_watermelon(path):
+        return 'nowatermelon'
 
     model = models.resnet50()
     model.conv1 = nn.Sequential(
